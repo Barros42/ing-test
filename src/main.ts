@@ -2,8 +2,11 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import dotenvFlow = require('dotenv-flow');
+
 
 async function bootstrap() {
+  dotenvFlow.config();
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe())
 

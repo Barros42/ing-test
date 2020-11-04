@@ -1,0 +1,15 @@
+FROM node:alpine
+
+WORKDIR /api
+
+COPY . . 
+
+RUN yarn install 
+
+ENV PORT 8080
+ENV TZ=America/Sao_Paulo
+ENV LOCAL=true
+
+EXPOSE 8080
+
+CMD ["yarn", "start:dev"]

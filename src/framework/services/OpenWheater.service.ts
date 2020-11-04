@@ -6,6 +6,10 @@ import ErrorList from "src/domain/errors/errorList";
 @Injectable()
 export class OpenWheaterService implements IWheaterService {
 
+    private readonly xApiKey: string = process.env.OPEN_WHEATER_API_KEY
+    private readonly xApiHost: string = process.env.OPEN_WHEATER_API_HOST
+    private readonly apiEndPoint: string =  process.env.OPEN_WHEATER_ENDPOINT
+
     async getCityTemperatureByCityName(cityName: string): Promise<number> {
         try {
             
