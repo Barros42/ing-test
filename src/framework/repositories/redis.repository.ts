@@ -13,8 +13,12 @@ export default class RedisRepository implements ICacheRepository {
         this.getAsync = promisify(this.redisClient.get).bind(this.redisClient);
     }
 
-    async insertValue(key: string, value: string): Promise<void> {
-        this.redisClient.SET(key, value);
+    async insertValue(key: string, value: string, seconds?: number): Promise<void> {
+        if(seconds){
+            this.redisClient.SETEX(key, seconds, value)
+        } else {
+            this.redisClient.SET(key, value)
+        }
     }
 
     async getValue(key: string): Promise<string | null> {

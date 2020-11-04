@@ -43,7 +43,7 @@ export class CityPlaylistUseCase implements ICityPlaylistUseCase {
     }
 
     private async _handleCityStats(city: string): Promise<void> {
-
+       
         city = city.toUpperCase()
 
         const cityStats = await this.cacheService.getValue('cities')

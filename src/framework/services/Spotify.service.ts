@@ -1,9 +1,11 @@
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import IPlaylistService from "src/business/playlist/interfaces/IPlaylistsService";
 import SpotifyWebApi from 'spotify-web-api-node'
 import qs from 'querystring';
 import Axios, { AxiosError } from "axios";
 import ErrorList from "src/domain/errors/errorList";
+import RedisRepository from "../repositories/redis.repository";
+import { ICacheRepository } from "src/business/cache/interfaces/cache.repository";
 
 @Injectable()
 export default class SpotifyService implements IPlaylistService {
@@ -15,7 +17,10 @@ export default class SpotifyService implements IPlaylistService {
     private readonly clientSecret: string = process.env.SPOTIFY_CLIENT_SECRET
     private readonly spotifyTokenUrl: string = process.env.SPOTIFY_TOKEN_URL
 
-    constructor(){
+    constructor(
+        @Inject(RedisRepository)
+        private readonly cacheRepository: ICacheRepository
+    ){
         this.spotifyWebApi = new SpotifyWebApi()
         this.spotifyWebApi.setAccessToken(this.spotifyToken)
     }
@@ -23,6 +28,15 @@ export default class SpotifyService implements IPlaylistService {
     private async _getSpotifyToken(): Promise<void> {
 
        try {
+
+        const savedToken = await this.cacheRepository.getValue('spotifyKey')
+
+        if(savedToken){
+            this.spotifyAccessToken = savedToken
+            this.spotifyWebApi.setAccessToken(this.spotifyAccessToken)
+            return
+        }
+
         const authString = `Basic ${Buffer.from(`${this.clientId}:${this.clientSecret}`).toString("base64")}`;
 
         const data = {
@@ -40,10 +54,13 @@ export default class SpotifyService implements IPlaylistService {
         })
 
         if (response) {
-            this.spotifyAccessToken = response.data.access_token
+            const accessToken = response.data.access_token
+            this.cacheRepository.insertValue('spotifyKey', accessToken, (response.data.expires_in - 10))
+            this.spotifyAccessToken = accessToken
             this.spotifyWebApi.setAccessToken(this.spotifyAccessToken)
         } else {
             this.spotifyAccessToken = null
+            throw new Error(ErrorList.ErrorInGetPlaylist.toString());
         }
 
         } catch (error) {
