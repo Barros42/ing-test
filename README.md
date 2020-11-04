@@ -1,75 +1,61 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# InGaia Test
 
-[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
-[travis-url]: https://travis-ci.org/nestjs/nest
-[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
-[linux-url]: https://travis-ci.org/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
-<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
-<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
-  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Premissa
+Um estudo organizado por um grupo de pesquisadores desocupados demonstrou que as pessoas tendem a preferir diferentes gêneros musicais de acordo com a temperatura ambiente. Baseado nesta incrível descoberta, contratamos você para desenvolver um serviço revolucionário que irá sugerir músicas ao usuário de acordo com a temperatura atual da cidade dele! Não é sensacional?
 
-## Description
+## Requisitos Funcionais
+- Seu serviço deve ser acessível através de uma API REST ✅
+- Seu serviço deve ter rota que aceita nome de cidade como parâmetro e retornar uma playlist de acordo com a temperatura atual ✅
+- Seu serviço deve seguir as regras das temperaturas ✅
+- Seu serviço deve possuir um endpoint que indique as estatísticas de cidades consultadas desde a criação do serviço. ✅
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Requisitos não funcionais
+- Seu serviço deve executar em um container **Docker** ✅
+- Seu serviço deve ser construído com atenção aos seguintes aspectos:
+	-   Latência ✅
+	-   Resiliência ✅
+	-   Tolerância à falhas ✅
+	-   Segurança ✅
+	-   Escalabilidade ✅
+- Seu serviço deverá ser stateless, porém poderá fazer uso de ferramentas de **cache** para garantir a performance nas respostas. ✅
+- Você deve apresentar uma **documentação** que represente a arquitetura de seu serviço e, se necessário, uma explicação para suas decisões de arquitetura. ✅
 
-## Installation
+## API
 
-```bash
-$ npm install
-```
+- URL BASE ➡ https://ing-test-api.azurewebsites.net
+- Documentação da API (Swagger) ➡ https://ing-test-api.azurewebsites.net/swagger
+- URL Playlist ➡ /city/{cityName}/playlist
+- URL Stats ➡ /city/stats
 
-## Running the app
+## Escolhas de Projeto
+- Framework Utilizado ➡  **NESTJS**
+- Hospedagem ➡ **Azure Platform**
+- Hospedagem de Imagem ➡ **DockerHub**
+- API de Clima ➡ **OpenWheater**
+- API de Musicas ➡ **Spotify**
+- Serviço de Cache ➡ **Redis**
 
-```bash
-# development
-$ npm run start
+## Técnicas Utilizadas
+- **Injeção de dependência**
+	- Projeto desenvolvido utilizando injeção de dependência evitando o alto nível de acoplamento do código, visando um sistema mais manutenível, testável e escalável, pois é possível manipular determinadas partes do sistema sem afetar outras, além disso habilita a utilização de mocks para realizar testes unitários
 
-# watch mode
-$ npm run start:dev
+- **Clean Architeture**
+	- Projeto desenvolvido seguindo e respeitando os padrões da arquitetura limpa, seguindo as camadas e facilitando ainda mais a testagem do código, além disso, é extremamente simples e fácil altear as funcionalidades da ultima camada, como: API de Clima, API de música ou serviço de Cache, pois desde que estes novos serviços respeitem o contrato das interfaces, o sistema continua funcionando sem maiores alterações
 
-# production mode
-$ npm run start:prod
-```
+- **Variáveis de Ambiente**
+	- Dados sensiveis como Chaves de API, Senhas de serviço e Strings de conexão são armazenadas em variáveis de ambiente, visando a segurança do projeto, visto que mesmo que o código fonte do projeto for exposto devido a alguma falha de segurança os dados sensíveis não serão expostos.
+	
+- **Integração Continua**
+	- Projeto desenvolvido utilizando integração continua seguindo o seguinte fluxo:
+		- Projeto é atualizado no repositório (GitHub) (Branch Master)
+		- DockerHub é acionado e inicializa o processo instação dos pacotes, builds e geração da Imagem
+		- Azure é acionado pelo DockerHub após a geração da Imagem
+		- Azure baixa a imagem e disponibiliza em produção a versão latest da imagem
+## Diagramas
 
-## Test
+### Integração Continua
 
-```bash
-# unit tests
-$ npm run test
+![Integração Continua](https://i.ibb.co/dm9cp9r/a.png)
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-  Nest is [MIT licensed](LICENSE).
+### Fluxo de Dados
+![Fluxo de Dados](https://i.ibb.co/VBSCKfM/a.png)
