@@ -6,10 +6,6 @@ import ErrorList from "src/domain/errors/errorList";
 @Injectable()
 export class OpenWheaterService implements IWheaterService {
 
-    // private readonly xApiKey: string = 'e34010186cmshca43d4232127fa3p131664jsnd831f2ce7102'
-    // private readonly xApiHost: string = 'community-open-weather-map.p.rapidapi.com'
-    // private readonly apiEndPoint: string = 'https://rapidapi.p.rapidapi.com/weather'
-
     async getCityTemperatureByCityName(cityName: string): Promise<number> {
         try {
             

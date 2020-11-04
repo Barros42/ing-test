@@ -5,7 +5,6 @@ import SpotifyWebApi from 'spotify-web-api-node'
 @Injectable()
 export default class SpotifyService implements IPlaylistService {
 
-    // private readonly spotifyToken: string = 'BQBVEV4mGKRecKPOA9VG3wFvb9wcGq_QakOh4RTVQMEOTO_HC70m5cdgvGf7mz7NRlohOzn473xujeIhO-4aXsIIcw524bP8dw0PxCTG52CqJt6XXhmX_pnP8f3a-Om6JQe7LK6THLJErsQVND8mF6FXegsbQR4tiCZ3KNykmLk33qT6h4ryS2aL_i-78_D6r_HT0R4KDbS6HfdOv1fsyL7E0f-92LIZTPJWFIVCaQz-Klf12MnVjJ4YBHofHx_N5D0C1a9St0W2jh3IsHyj'
     private spotifyWebApi: SpotifyWebApi
 
     constructor(){
